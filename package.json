@@ -1,0 +1,40 @@
+{
+  "name": "game-of-life",
+  "version": "1.0.0",
+  "description": "a simple game using gamedong-engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qphilippot/game-of-life.git"
+  },
+  "author": "qphilippot",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qphilippot/game-of-life/issues"
+  },
+  "homepage": "https://github.com/qphilippot/game-of-life#readme",
+  "dependencies": {
+    "game-dong": "git+https://github.com/qphilippot/gamedong.git",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.7.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.13.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^1.0.0",
+    "vue-loader": "^15.7.2",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5"
+  }
+}
