@@ -1,8 +1,12 @@
+@import "../../scss-var/variables";
+
+$menu-height: calc(100vh - #{$header-height});
+
 .left-menu {
-    width: 20%;
-    min-height: 100vh;
-    max-height: 100vh;
+    width: $left-menu-width;
+    min-height: $menu-height;
+    max-height: $menu-height;
     overflow-y: auto;
     background: blue;
-    float: left;
+    position: fixed;
 }

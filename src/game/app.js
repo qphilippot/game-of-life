@@ -1,16 +1,12 @@
 import { ViewPort, TileMap, Camera } from 'game-dong';
-const GameDong = window.GameDong;
 import RuledCell from './model/RuledCell.model';
 
 class Game {
-    constructor() {
-        console.log('Game created');
-    }
+    constructor() {}
 
     start() {
-        console.log('game start ...', GameDong);
 
-        const viewport = new GameDong.ViewPort({
+        const viewport = new ViewPort({
             container: 'gd-main-viewport',
             size: {
                 width: 500,
@@ -18,7 +14,7 @@ class Game {
             }
         });
         
-        const map = new GameDong.TileMap({
+        const map = new TileMap({
             name: 'lifegame',
             nbRows: 5,
             nbColumns: 5
@@ -37,7 +33,7 @@ class Game {
         }
         
         window.entities = entities;
-        const camera = new GameDong.Camera({
+        const camera = new Camera({
             radius: 20,
             position: {
                 x: 0.5,

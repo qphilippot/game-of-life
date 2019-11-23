@@ -1,3 +1,6 @@
-.game {
+@import "../../scss-var/variables";
 
+.game {
+    margin-left: $left-menu-width;
+    text-align: center;
 }
