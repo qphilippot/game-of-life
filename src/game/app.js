@@ -2,10 +2,7 @@ import { ViewPort, TileMap, Camera } from 'game-dong';
 import RuledCell from './model/RuledCell.model';
 
 class Game {
-    constructor() {}
-
-    start() {
-
+    constructor() {
         const viewport = new ViewPort({
             container: 'gd-main-viewport',
             size: {
@@ -57,6 +54,10 @@ class Game {
             viewport.clear();
             camera.snapshot(viewport);    
         });
+    }
+
+    start() {
+
     }
 }
 

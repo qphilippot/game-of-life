@@ -1,5 +1,3 @@
-import Game from '../../game/app';
-
 export default {
   name: 'game',
   components: {},
@@ -15,9 +13,9 @@ export default {
 
   },
   mounted () {
-    const game = new Game();
-    game.start();
+    this.$store.commit('game/create');
   },
+
   methods: {
 
   }
