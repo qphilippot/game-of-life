@@ -1,10 +1,12 @@
 import { GameElement } from 'game-dong';
 
+const idle = () => {};
+
 class RuledCell extends GameElement {
     constructor(settings = {}) {
         super(settings);
-        this.alive = Math.random() > 0.6;
-        this.evolve = function() {}
+        this.alive = false;
+        this.evolve = idle;
     }
     
     render(context = null, x, y, w, h) {

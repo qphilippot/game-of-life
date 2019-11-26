@@ -1,4 +1,9 @@
 <section class="left-menu">
   <h1>left-menu Component</h1>
+  <ul>
+    <li v-for="(button, index) in buttons" @click="perform(button.action)">
+      <button>{{ button.name }}</button>
+    </li>
+  </ul>
 </section>
 
