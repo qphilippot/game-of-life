@@ -17,16 +17,20 @@ class RuledCell extends GameElement {
         if (this.alive !== true) {
             return;
         }
+
         if (typeof x !== 'number') {
             x = p.x;
         }
+        
         if (typeof y !== 'number') {
             y = p.y;
         }
+        
         context.fillStyle = 'blue';
         context.fillRect(x, y, w || s.width, h || s.height);
         // context.drawImage(d.texture, x, y, w, h);
     }
+
     idle() {}
     tick(environement) {
         const neighborhood = this.getNeighborhood(environement);

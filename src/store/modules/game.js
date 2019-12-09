@@ -1,4 +1,4 @@
-import Game from '../../game/app';
+import Game from '../../../game/app';
 
 export default {
     namespaced: true,
@@ -24,6 +24,7 @@ export default {
             // https://github.com/vuejs/vue/issues/2637#issuecomment-207076744
             
             state.game = Object.freeze(new Game());
+            window.game = state.game;
         },
 
         lastRefreshIsNow(state) {

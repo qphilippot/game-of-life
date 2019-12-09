@@ -1,8 +1,11 @@
-import { ViewPort, TileMap, Camera } from 'game-dong';
+import { ViewPort, TileMap, Camera, GameElement } from 'game-dong';
 import RuledCell from './model/RuledCell.model';
+import ViewPortMouseController from './ui/viewport.mouse-controller';
 
-class Game {
+class Game extends GameElement {
     constructor() {
+        super();
+        
         this.createViewport();
         this.createMap();
         this.createCamera();
@@ -10,6 +13,28 @@ class Game {
 
         this.populate();
         this.render();
+
+        this.setupListener();
+    }
+
+    getZoomLevel() {
+        return this.map.getNbColumns() / (2 * this.camera.radius);
+    }
+  
+    setupListener() {
+        this.listen('pointer-move', event => {
+            const n_positionInViewport = event.detail.position;
+            const n_cameraPos = this.camera.getPosition();
+
+            const zoom = this.getZoomLevel();
+
+            // camera position is normalized in map coordinates [0..1]
+            // pointer is normalized in viewport coordinates [0..1]
+            // -0.5 cause camera is always in center of canvas
+            const x = ((n_positionInViewport.x - 0.5) / zoom) + n_cameraPos.x;
+            const y = ((n_positionInViewport.y - 0.5) / zoom) + n_cameraPos.y;
+            // convert normalized position into cell-map position
+        });
     }
 
     createViewport() {
@@ -18,7 +43,9 @@ class Game {
             size: {
                 width: 500,
                 height: 500
-            }
+            },
+
+            MouseController: ViewPortMouseController
         });
     }
 
@@ -32,10 +59,10 @@ class Game {
 
     createCamera() {
         this.camera = new Camera({
-            radius: 30,
+            radius: 40,
             position: {
-                x: 0.5,
-                y: 0.5
+                x: 1,
+                y: 1
             }
         });
                 
