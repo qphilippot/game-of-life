@@ -9,4 +9,5 @@ $menu-height: calc(100vh - #{$header-height});
     overflow-y: auto;
     background: blue;
     position: fixed;
+    z-index: 2;
 }

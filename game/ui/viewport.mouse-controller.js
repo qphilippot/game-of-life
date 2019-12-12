@@ -44,9 +44,9 @@ class ViewPortMouseController extends MouseController {
         this.viewport.layers.ui.clear();
         pointer.render(this.viewport.getContext('ui'));
 
-        this.viewport.emit('pointer-move', {
+        this.viewport.emit('viewport-pointer-move', {
             detail: {
-                position: position
+                position
             }
         });
     }

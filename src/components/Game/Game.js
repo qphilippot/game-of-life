@@ -13,7 +13,7 @@ export default {
 
   },
   mounted () {
-    this.$store.commit('game/create');
+    this.$store.dispatch('game/create');
   },
 
   methods: {

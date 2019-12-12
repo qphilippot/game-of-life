@@ -22,19 +22,32 @@ class Game extends GameElement {
     }
   
     setupListener() {
-        this.listen('pointer-move', event => {
-            const n_positionInViewport = event.detail.position;
-            const n_cameraPos = this.camera.getPosition();
+        this.listen('viewport-pointer-move', event => {
+            const mapCoords = this.convertCoordsViewPortToScene(
+                event.detail.position
+            );
 
-            const zoom = this.getZoomLevel();
-
-            // camera position is normalized in map coordinates [0..1]
-            // pointer is normalized in viewport coordinates [0..1]
-            // -0.5 cause camera is always in center of canvas
-            const x = ((n_positionInViewport.x - 0.5) / zoom) + n_cameraPos.x;
-            const y = ((n_positionInViewport.y - 0.5) / zoom) + n_cameraPos.y;
-            // convert normalized position into cell-map position
+            this.emit('map-pointer-move', {
+                detail: {
+                    position: mapCoords
+                }
+            });
         });
+    }
+
+    // convert normalized position into cell-map position
+    convertCoordsViewPortToScene(position) {
+        const n_positionInViewport = position;
+        const n_cameraPos = this.camera.getPosition();
+
+        const zoom = this.getZoomLevel();
+
+        // camera position is normalized in map coordinates [0..1]
+        // pointer is normalized in viewport coordinates [0..1]
+        // -0.5 cause camera is always in center of canvas
+        const x = ((n_positionInViewport.x - 0.5) / zoom) + n_cameraPos.x;
+        const y = ((n_positionInViewport.y - 0.5) / zoom) + n_cameraPos.y;
+        return { x, y };
     }
 
     createViewport() {
