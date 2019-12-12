@@ -15,6 +15,17 @@ class ViewPortMouseController extends MouseController {
         this.viewport.store('pointer', pointer);
     }
 
+    onMouseOut(event) {
+        event.target.style.cursor = 'inherit';
+
+        this.viewport.layers.ui.clear();
+    }
+
+
+    onMouseEnter(event) {
+        event.target.style.cursor = 'none';
+    }
+
     onMouseMove(event) {
 
         const position = this.viewport.getNormalizedPosition({

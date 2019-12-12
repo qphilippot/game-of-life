@@ -65,8 +65,18 @@ class Game extends GameElement {
                 y: 1
             }
         });
-                
+    
         this.camera.setScene(this.map);
+        const { width, height } = this.viewport.getResolution();
+
+        const zoom = this.getZoomLevel();
+        const scale = this.map.getNbColumns() / zoom;
+        const pointer = this.viewport.get('pointer');
+
+        pointer.setSize({
+            width: width / scale ,
+            height: height / scale,
+        });
     }
 
     createCells() {
