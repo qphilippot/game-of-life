@@ -10,9 +10,15 @@ export default {
           name: "populate",
           action: 'game/populate'
         },
+
         {
           name: "tick",
           action: 'game/tick'
+        },
+        
+        {
+          name: "clear",
+          action: 'game/clear'
         }
       ]
     }

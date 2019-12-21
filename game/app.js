@@ -20,7 +20,7 @@ class Game extends GameElement {
     getZoomLevel() {
         return this.map.getNbColumns() / (2 * this.camera.radius);
     }
-  
+
     setupListener() {
         this.listen('viewport-pointer-move', event => {
             const mapCoords = this.convertCoordsViewPortToScene(
@@ -33,6 +33,45 @@ class Game extends GameElement {
                 }
             });
         });
+
+        this.listen('viewport-click', event => {
+            const mapCoords = this.convertCoordsViewPortToScene(
+                event.detail.position
+            );
+
+            const map = this.map;
+            // +0.5 cause we use the middle of pointer as real point, not the origin
+            mapCoords.x = Math.floor(mapCoords.x * map.getNbColumns() + 0.5);
+            mapCoords.y = Math.floor(mapCoords.y * map.getNbRows() + 0.5);
+
+            const cell = this.map.getTile(mapCoords.x, mapCoords.y);
+            if (typeof cell === 'undefined') {
+                this.addCell(mapCoords.x, mapCoords.y);
+            }
+
+            else {
+                if (cell.isAlive()) {
+                    cell.die();
+                }
+
+                else {
+                    cell.born();
+                }
+            }
+
+            this.render();
+        });
+    }
+
+    addCell(x, y, isAlive = true) {
+        const cell = new RuledCell();
+
+        if (isAlive) {
+            cell.born();
+        }
+
+        this.map.add(cell, x, y);
+        this.entities.push(cell);
     }
 
     // convert normalized position into cell-map position
@@ -65,17 +104,17 @@ class Game extends GameElement {
     createMap() {
         this.map = new TileMap({
             name: 'lifegame',
-            nbRows: 20,
-            nbColumns: 20
+            nbRows: 100,
+            nbColumns: 100
         });
     }
 
     createCamera() {
         this.camera = new Camera({
-            radius: 40,
+            radius: 50,
             position: {
-                x: 1,
-                y: 1
+                x: 0.5,
+                y: 0.5
             }
         });
     
@@ -128,6 +167,12 @@ class Game extends GameElement {
     tick() {
         this.entities.forEach(elt => elt.tick(this.map));
         this.entities.forEach(elt => elt.mutation());
+    }
+
+    clear() {
+        this.entities.forEach(cell => {
+            cell.die();
+        });
     }
 }
 

@@ -65,7 +65,13 @@ export default {
         tick(state) {
             state.game.tick();
             state.game.render();
+        },
+
+        clear(state) {
+            state.game.clear();
+            state.game.render();
         }
+
     }
 }
 

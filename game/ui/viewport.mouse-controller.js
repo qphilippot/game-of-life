@@ -15,19 +15,7 @@ class ViewPortMouseController extends MouseController {
         this.viewport.store('pointer', pointer);
     }
 
-    onMouseOut(event) {
-        event.target.style.cursor = 'inherit';
-
-        this.viewport.layers.ui.clear();
-    }
-
-
-    onMouseEnter(event) {
-        event.target.style.cursor = 'none';
-    }
-
-    onMouseMove(event) {
-
+    updatePointerPosition(event) {
         const position = this.viewport.getNormalizedPosition({
             x: event.offsetX,
             y: event.offsetY
@@ -41,12 +29,45 @@ class ViewPortMouseController extends MouseController {
             y: position.y * size.height,
         });
 
+
+        pointer.store('viewport-normalized-position', position);
+    }
+
+    onMouseDown(event) {
+        this.updatePointerPosition(event);
+        const pointer = this.viewport.get('pointer');
+        const position = pointer.getPosition();
+
+        this.emit('viewport-click', {
+            detail: {
+                position: pointer.get('viewport-normalized-position')
+            }
+        })
+
+    }
+
+    onMouseOut(event) {
+        event.target.style.cursor = 'inherit';
+
         this.viewport.layers.ui.clear();
+    }
+
+
+    onMouseEnter(event) {
+        event.target.style.cursor = 'none';
+    }
+
+    onMouseMove(event) {
+        this.updatePointerPosition(event);
+        this.viewport.layers.ui.clear();
+
+      
+        const pointer = this.viewport.get('pointer');
         pointer.render(this.viewport.getContext('ui'));
 
         this.viewport.emit('viewport-pointer-move', {
             detail: {
-                position
+                position: pointer.get('viewport-normalized-position')
             }
         });
     }

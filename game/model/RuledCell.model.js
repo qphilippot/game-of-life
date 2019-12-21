@@ -1,12 +1,14 @@
 import { GameElement } from 'game-dong';
 
 const idle = () => {};
-
+let counter = 0;
 class RuledCell extends GameElement {
     constructor(settings = {}) {
         super(settings);
         this.alive = false;
         this.evolve = idle;
+
+        this._id = ++counter;
     }
     
     render(context = null, x, y, w, h) {
@@ -32,6 +34,7 @@ class RuledCell extends GameElement {
     }
 
     idle() {}
+
     tick(environement) {
         const neighborhood = this.getNeighborhood(environement);
     
@@ -41,6 +44,7 @@ class RuledCell extends GameElement {
         ) {
             this.mutation = this.born;
         }
+
         else if (
             this.isAlive() && 
             neighborhood.length !== 3 &&
@@ -52,31 +56,38 @@ class RuledCell extends GameElement {
             this.mutation = this.idle
         }
     }
+
     isAlive() {
         return this.alive === true;
     }
+
     die() {
         this.alive = false;
     }
+
     born() {
         this.alive = true;
     }
+
     getNeighborhood(environement) {
         const x = this.getX();
         const y = this.getY();
         const neighborhood = [];
+        
         for(let i = 0; i < 3; ++i) {
             for(let j = 0; j < 3; ++j) {
                 const cell = environement.getTile(x - i + 1, y - j + 1);
+
                 if (
                     typeof cell !== 'undefined' &&
-                    i !== 1 && j !== 1 &&
+                    this._id !== cell._id &&
                     cell.isAlive()
                 ) {
                     neighborhood.push(cell);
                 } 
             }
         }
+
         return neighborhood;
     }
 }
