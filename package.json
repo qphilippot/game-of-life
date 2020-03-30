@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/qphilippot/game-of-life#readme",
   "dependencies": {
-    "game-dong": "git+https://github.com/qphilippot/gamedong.git",
+    "game-dong": "git+https://github.com/qphilippot/gamedong.git#feature/scene",
     "vue": "^2.6.10",
     "vuex": "^3.1.2"
   },
